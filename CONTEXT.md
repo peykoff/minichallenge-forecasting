@@ -41,21 +41,25 @@
 
 ## 3. Struttura della cartella
 
+Repo GitHub: <https://github.com/peykoff/minichallenge-forecasting>
+
 ```
-Challenge/
+Minichallenge-Forecasting/
 ├── CONTEXT.md                 ← questo file
+├── .gitignore                 ← esclude .DS_Store, .ipynb_checkpoints/, __pycache__/
 ├── 2026 Mini Challenge.pdf    ← consegna (stampa parziale della pagina Notion)
 ├── hotels_LA.ipynb            ← NOTEBOOK PRINCIPALE (pipeline completa)
-├── Data/                      ← dataset del prof (pickle): hotels, weather, air, oil_1
+├── Data/                      ← dataset del prof (pickle): hotels, weather, oil_1
 └── Theory/                    ← slide e notebook del corso usati come riferimento
 ```
+`air.pk` (42 MB) non è nel repo perché non serve; se necessario si scarica dal link "data" della sezione AIR della pagina Notion.
 
 **Setup:**
 ```bash
 pip install statsforecast
 ```
 Servono anche: `pandas numpy matplotlib seaborn scipy statsmodels` (già in Anaconda).
-Il notebook va eseguito dalla cartella `Challenge/` (legge `Data/hotels.pk`). **Runtime ≈ 1.5 minuti.**
+Il notebook va eseguito dalla cartella principale del repo (legge `Data/hotels.pk`). **Runtime ≈ 1.5 minuti.**
 
 ## 4. Stato attuale del notebook `hotels_LA.ipynb`
 
@@ -113,4 +117,5 @@ Il notebook va eseguito dalla cartella `Challenge/` (legge `Data/hotels.pk`). **
 
 | Data | Chi | Modifiche |
 |---|---|---|
+| 2026-10-12 | [nome] | Progetto spostato nel repo GitHub. Aggiunto `.gitignore`, rimossi dal tracking i file `.DS_Store`, aggiornati i percorsi in questo file. |
 | 2026-10-12 | [nome] | Scelta del dataset (Hotels / Los Angeles) dopo esplorazione dei 4 dataset. Creato `hotels_LA.ipynb` con pipeline completa: EDA, trasformazioni e test di stazionarietà, CV rolling-origin su 2019 + stress test 2020, 4 baseline e 4 modelli statistici, selezione (ARIMA + lag364, MAPE 5.9%), diagnostica residui, previsioni con intervalli. Creato questo `CONTEXT.md`. |
