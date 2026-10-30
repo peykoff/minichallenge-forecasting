@@ -70,7 +70,7 @@ Il notebook va eseguito dalla cartella principale del repo (legge `Data/hotels.p
 | 3. Trasformazioni | Box-Cox/log, test ADF + KPSS | ✅ |
 | 4. CV + baseline | `rolling_cv`, naive, mean, seasonal naive 7 e 364, metriche, residui | ✅ |
 | 5. Modelli | ETS, SARIMA, SARIMA + Fourier, ARIMA + lag364 (statsforecast) | ✅ |
-| 6. Risultati | tabella, MAPE per orizzonte, diagnostica residui, previsioni con PI, conclusioni | ✅ |
+| 6. Risultati | tabella, outlier (Hampel su resto MSTL, 6.3), previsioni vs reali + errori 2019-2020 (6.5), MAPE per orizzonte, diagnostica residui, previsioni con PI, conclusioni | ✅ |
 
 ### Scelte metodologiche (da saper giustificare all'esame!)
 - **Log del revenue:** la deviazione standard mensile cresce col livello; dopo il log è costante (λ Box-Cox MLE = 0.58, scelto log per semplicità).
@@ -93,6 +93,7 @@ Il notebook va eseguito dalla cartella principale del repo (legge `Data/hotels.p
 | seasonal naive 7 | 11.7 % | 13.7 % |
 
 - **Modello selezionato: ARIMA + lag364** → MAE −11% rispetto alla baseline migliore, ~4% MAPE a 1 giorno, residui senza autocorrelazione (Ljung-Box p = 0.35 a lag 7).
+- **Outlier:** filtro di Hampel (finestra 15 giorni, 3·MAD) sul resto MSTL di log y fino al 2018 → 57 giorni (2.6%) imputati con la mediana locale. Il modello stimato sui dati puliti **peggiora** sul 2019 (MAPE 6.2% vs 5.9%) e migliora poco nel 2020 (25.0% vs 27.0%): le festività a data fissa sono già prevedibili grazie a `lag364`. Si tiene il modello sui dati originali.
 - **Punti deboli:** festività mobili (es. Thanksgiving 2019 non allineato con il 2018) e rotture strutturali (nel 2020 ETS è il più robusto).
 
 ## 5. TODO / idee aperte
@@ -117,6 +118,7 @@ Il notebook va eseguito dalla cartella principale del repo (legge `Data/hotels.p
 
 | Data | Chi | Modifiche |
 |---|---|---|
+| 2026-10-30 | [nome] | Verifica rispetto alle linee guida del prof: aggiunta spiegazione Box-Cox/stazionarietà (3.2), sezione outlier con filtro di Hampel (6.3), grafico previsioni vs reali ed errori 2019-2020 (6.5). Sezioni 6.3/6.4 rinumerate in 6.4/6.6. |
 | 2026-10-30 | [nome] | Aggiunti variance ratio e spectral entropy (indicatori di forecastability del corso) alla sezione 2.1 del notebook. |
 | 2026-10-30 | [nome] | Notebook ristrutturato: si caricano tutte le città, la scelta della città (LA) avviene nell'EDA (sezione 2.1) in base a indicatori di forecastability, non più a priori. Variabile `la` rinominata `data`, sottosezioni EDA rinumerate. |
 | 2026-10-12 | [nome] | Progetto spostato nel repo GitHub. Aggiunto `.gitignore`, rimossi dal tracking i file `.DS_Store`, aggiornati i percorsi in questo file. |
