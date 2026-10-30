@@ -98,12 +98,12 @@ Il notebook va eseguito dalla cartella principale del repo (legge `Data/hotels.p
 
 ## 5. TODO / idee aperte
 
-- [ ] **Riscrivere con parole nostre** tutte le celle "Observations" e le conclusioni (sono una bozza)
-- [ ] Rieseguire tutto (`Restart & Run All`) su ogni PC per verificare che funzioni
+- [ ] **Rivedere e personalizzare** le 21 celle di testo (Observations, spiegazioni, conclusioni): nuova bozza più semplice già nel notebook, va riletta e riformulata con parole nostre. Elenco celle: 1, 7, 9, 13, 16, 19, 22, 27, 30, 31, 38, 41, 42, 44, 46, 50, 53, 54, 57, 62, 63 (priorità: 63 Conclusioni).
+- [x] Rieseguire tutto (`Restart & Run All`) su ogni PC per verificare che funzioni
 - [ ] (opzionale) Dummy per le festività (Thanksgiving, Natale, 4 luglio, …) → dovrebbe ridurre i picchi nei residui
 - [ ] (opzionale) Combinazione ETS + ARIMA + lag364 per robustezza dopo rotture strutturali
 - [ ] (opzionale) Provare `Demand` ritardata come regressore esogeno (correlazione con Revenue 0.96, probabilmente poco guadagno)
-- [ ] Rileggere il notebook intero prima della consegna: corto, commentato, niente codice inutile
+- [x] Rileggere il notebook intero prima della consegna: corto, commentato, niente codice inutile
 
 ## 6. Come lavorare in gruppo
 
@@ -118,6 +118,7 @@ Il notebook va eseguito dalla cartella principale del repo (legge `Data/hotels.p
 
 | Data | Chi | Modifiche |
 |---|---|---|
+| 2026-10-30 | [nome] | Riscritte in modo più semplice le 21 celle di testo del notebook (bozza da rivedere), metriche citate con MAE/nMAE prima del MAPE; aggiornata la pipeline nella prima cella. |
 | 2026-10-30 | [nome] | Verifica rispetto alle linee guida del prof: aggiunta spiegazione Box-Cox/stazionarietà (3.2), sezione outlier con filtro di Hampel (6.3), grafico previsioni vs reali ed errori 2019-2020 (6.5). Sezioni 6.3/6.4 rinumerate in 6.4/6.6. |
 | 2026-10-30 | [nome] | Aggiunti variance ratio e spectral entropy (indicatori di forecastability del corso) alla sezione 2.1 del notebook. |
 | 2026-10-30 | [nome] | Notebook ristrutturato: si caricano tutte le città, la scelta della città (LA) avviene nell'EDA (sezione 2.1) in base a indicatori di forecastability, non più a priori. Variabile `la` rinominata `data`, sottosezioni EDA rinumerate. |
