@@ -32,7 +32,7 @@
 | ETT (oil) | 15 min, 1-96 passi | ~70k punti, stagionalità 96 → SARIMA impraticabile | scartato |
 | AIR | orario, 1-24 ore | 12 stazioni, molti NaN, picchi fino a 999 | scartato |
 
-**Perché Los Angeles:** la città non è scelta a priori: nella sezione 2.1 del notebook si confrontano tutte le 8 città (ACF lag 7/364, coefficiente di variazione, MAPE del seasonal naive 7 sul 2019) e si sceglie automaticamente quella con il MAPE più basso → Los Angeles (ACF lag 7 = 0.83, MAPE 12.1% vs 17.9% della seconda, Dallas). Il resto del notebook dipende solo dalla variabile `CITY`.
+**Perché Los Angeles:** la città non è scelta a priori: nella sezione 2.1 del notebook si confrontano tutte le 8 città (ACF lag 7/364, coefficiente di variazione, variance ratio e spectral entropy del corso, MAPE del seasonal naive 7 sul 2019) e si sceglie automaticamente quella con il MAPE più basso → Los Angeles (ACF lag 7 = 0.83, MAPE 12.1% vs 17.9% della seconda, Dallas). Il resto del notebook dipende solo dalla variabile `CITY`. Nota: su variance ratio e spectral entropy Boston è leggermente migliore di LA (LA seconda), ma ha un errore del seasonal naive molto più alto (21.5%): si sceglie in base al test a-posteriori, come suggerito dal corso.
 
 **Note sui dati:**
 - Le colonne sono descritte come "Cumulative" ma in realtà sono **valori giornalieri** (non serve differenziare).
@@ -117,6 +117,7 @@ Il notebook va eseguito dalla cartella principale del repo (legge `Data/hotels.p
 
 | Data | Chi | Modifiche |
 |---|---|---|
+| 2026-10-30 | [nome] | Aggiunti variance ratio e spectral entropy (indicatori di forecastability del corso) alla sezione 2.1 del notebook. |
 | 2026-10-30 | [nome] | Notebook ristrutturato: si caricano tutte le città, la scelta della città (LA) avviene nell'EDA (sezione 2.1) in base a indicatori di forecastability, non più a priori. Variabile `la` rinominata `data`, sottosezioni EDA rinumerate. |
 | 2026-10-12 | [nome] | Progetto spostato nel repo GitHub. Aggiunto `.gitignore`, rimossi dal tracking i file `.DS_Store`, aggiornati i percorsi in questo file. |
 | 2026-10-12 | [nome] | Scelta del dataset (Hotels / Los Angeles) dopo esplorazione dei 4 dataset. Creato `hotels_LA.ipynb` con pipeline completa: EDA, trasformazioni e test di stazionarietà, CV rolling-origin su 2019 + stress test 2020, 4 baseline e 4 modelli statistici, selezione (ARIMA + lag364, MAPE 5.9%), diagnostica residui, previsioni con intervalli. Creato questo `CONTEXT.md`. |
