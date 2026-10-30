@@ -46,6 +46,7 @@ Repo GitHub: <https://github.com/peykoff/minichallenge-forecasting>
 ```
 Minichallenge-Forecasting/
 ├── CONTEXT.md                 ← questo file
+├── TODO.md                    ← cose da fare fino alla consegna
 ├── .gitignore                 ← esclude .DS_Store, .ipynb_checkpoints/, __pycache__/
 ├── 2026 Mini Challenge.pdf    ← consegna (stampa parziale della pagina Notion)
 ├── hotels_LA.ipynb            ← NOTEBOOK PRINCIPALE (pipeline completa)
@@ -118,6 +119,7 @@ Il notebook va eseguito dalla cartella principale del repo (legge `Data/hotels.p
 
 | Data | Chi | Modifiche |
 |---|---|---|
+| 2026-10-30 | [nome] | Creato `TODO.md` con le attività rimanenti, la preparazione all'esame e gli extra opzionali. |
 | 2026-10-30 | [nome] | Riscritte in modo più semplice le 21 celle di testo del notebook (bozza da rivedere), metriche citate con MAE/nMAE prima del MAPE; aggiornata la pipeline nella prima cella. |
 | 2026-10-30 | [nome] | Verifica rispetto alle linee guida del prof: aggiunta spiegazione Box-Cox/stazionarietà (3.2), sezione outlier con filtro di Hampel (6.3), grafico previsioni vs reali ed errori 2019-2020 (6.5). Sezioni 6.3/6.4 rinumerate in 6.4/6.6. |
 | 2026-10-30 | [nome] | Aggiunti variance ratio e spectral entropy (indicatori di forecastability del corso) alla sezione 2.1 del notebook. |
