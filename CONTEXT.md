@@ -32,7 +32,7 @@
 | ETT (oil) | 15 min, 1-96 passi | ~70k punti, stagionalità 96 → SARIMA impraticabile | scartato |
 | AIR | orario, 1-24 ore | 12 stazioni, molti NaN, picchi fino a 999 | scartato |
 
-**Perché Los Angeles:** la città non è scelta a priori: nella sezione 2.1 del notebook si confrontano tutte le 8 città (ACF lag 7/364, coefficiente di variazione, variance ratio e spectral entropy del corso, MAPE del seasonal naive 7 sul 2019) e si sceglie automaticamente quella con il MAPE più basso → Los Angeles (ACF lag 7 = 0.83, MAPE 12.1% vs 17.9% della seconda, Dallas). Il resto del notebook dipende solo dalla variabile `CITY`. Nota: su variance ratio e spectral entropy Boston è leggermente migliore di LA (LA seconda), ma ha un errore del seasonal naive molto più alto (21.5%): si sceglie in base al test a-posteriori, come suggerito dal corso.
+**Perché Los Angeles:** la città non è scelta a priori: nella sezione 2.1 del notebook si confrontano tutte le 8 città (ACF lag 7/364, variance ratio e spectral entropy del corso, MAPE del seasonal naive 7 sul 2019) e si sceglie automaticamente quella con il MAPE più basso → Los Angeles (ACF lag 7 = 0.83, MAPE 12.1% vs 17.9% della seconda, Dallas). Il resto del notebook dipende solo dalla variabile `CITY`. Nota: su variance ratio e spectral entropy Boston è leggermente migliore di LA (LA seconda), ma ha un errore del seasonal naive molto più alto (21.5%): si sceglie in base al test a-posteriori, come suggerito dal corso.
 
 **Note sui dati:**
 - Le colonne sono descritte come "Cumulative" ma in realtà sono **valori giornalieri** (non serve differenziare).
@@ -60,7 +60,7 @@ Minichallenge-Forecasting/
 pip install statsforecast
 ```
 Servono anche: `pandas numpy matplotlib seaborn scipy statsmodels` (già in Anaconda).
-Il notebook va eseguito dalla cartella principale del repo (legge `Data/hotels.pk`). **Runtime ≈ 1.5 minuti.**
+Il notebook va eseguito dalla cartella principale del repo (legge `Data/hotels.pk`). **Runtime ≈ 35 secondi.**
 
 ## 4. Stato attuale del notebook `hotels_LA.ipynb`
 
@@ -70,7 +70,7 @@ Il notebook va eseguito dalla cartella principale del repo (legge `Data/hotels.p
 | 2. EDA | 2.1 confronto città e scelta di `CITY`; poi time plot, boxplot giorno/mese, correlazioni, ACF/PACF, MSTL (7, 365) | ✅ |
 | 3. Trasformazioni | Box-Cox/log, test ADF + KPSS | ✅ |
 | 4. CV + baseline | `rolling_cv`, naive, mean, seasonal naive 7 e 364, metriche, residui | ✅ |
-| 5. Modelli | ETS, SARIMA, SARIMA + Fourier, ARIMA + lag364 (statsforecast) | ✅ |
+| 5. Modelli | ETS, SARIMA, ARIMA + lag364 (statsforecast) | ✅ |
 | 6. Risultati | tabella, outlier (Hampel su resto MSTL, 6.3), previsioni vs reali + errori 2019-2020 (6.5), MAPE per orizzonte, diagnostica residui, previsioni con PI, conclusioni | ✅ |
 
 ### Scelte metodologiche (da saper giustificare all'esame!)
@@ -88,13 +88,12 @@ Il notebook va eseguito dalla cartella principale del repo (legge `Data/hotels.p
 |---|---|---|
 | **ARIMA + lag364** (ARIMA(1,1,2)(2,0,0)[7] con regressore log y₍t−364₎) | **5.9 %** | 27.0 % |
 | seasonal naive 364 (miglior baseline) | 6.5 % | 142.8 % |
-| SARIMA + Fourier (K=10) | 7.3 % | 94.7 % |
 | ETS(A,N,A) | 9.5 % | **11.8 %** |
 | SARIMA(5,0,2)(2,1,0)[7] | 9.6 % | 13.5 % |
 | seasonal naive 7 | 11.7 % | 13.7 % |
 
 - **Modello selezionato: ARIMA + lag364** → MAE −11% rispetto alla baseline migliore, ~4% MAPE a 1 giorno, residui senza autocorrelazione (Ljung-Box p = 0.35 a lag 7).
-- **Outlier:** filtro di Hampel (finestra 15 giorni, 3·MAD) sul resto MSTL di log y fino al 2018 → 57 giorni (2.6%) imputati con la mediana locale. Il modello stimato sui dati puliti **peggiora** sul 2019 (MAPE 6.2% vs 5.9%) e migliora poco nel 2020 (25.0% vs 27.0%): le festività a data fissa sono già prevedibili grazie a `lag364`. Si tiene il modello sui dati originali.
+- **Outlier:** filtro di Hampel come nelle slide (finestra 15 giorni, mediana ± 3 std) sul resto MSTL di log y fino al 2018 → 7 giorni (0.3%), quasi tutti Memorial Day e Labor Day, imputati con la mediana locale. Il modello stimato sui dati puliti **peggiora** sul 2019 (MAPE 6.2% vs 5.9%) e migliora poco nel 2020 (26.1% vs 27.0%): sono festività mobili, servirebbero dummy. Si tiene il modello sui dati originali.
 - **Punti deboli:** festività mobili (es. Thanksgiving 2019 non allineato con il 2018) e rotture strutturali (nel 2020 ETS è il più robusto).
 
 ## 5. TODO / idee aperte
@@ -119,6 +118,7 @@ Il notebook va eseguito dalla cartella principale del repo (legge `Data/hotels.p
 
 | Data | Chi | Modifiche |
 |---|---|---|
+| 2026-10-31 | [nome] | Notebook allineato al materiale del corso: rimosso il modello SARIMA + Fourier e il coefficiente di variazione (non trattati), lag364 giustificato come time embedding / ARIMAX, Hampel con std come nelle slide (7 outlier), testo AIC e MSTL chiarito. Runtime ≈ 35 s. |
 | 2026-10-30 | [nome] | Creato `TODO.md` con le attività rimanenti, la preparazione all'esame e gli extra opzionali. |
 | 2026-10-30 | [nome] | Riscritte in modo più semplice le 21 celle di testo del notebook (bozza da rivedere), metriche citate con MAE/nMAE prima del MAPE; aggiornata la pipeline nella prima cella. |
 | 2026-10-30 | [nome] | Verifica rispetto alle linee guida del prof: aggiunta spiegazione Box-Cox/stazionarietà (3.2), sezione outlier con filtro di Hampel (6.3), grafico previsioni vs reali ed errori 2019-2020 (6.5). Sezioni 6.3/6.4 rinumerate in 6.4/6.6. |

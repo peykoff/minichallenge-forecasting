@@ -45,7 +45,7 @@ Questions the professor listed in the course; make sure everyone can answer them
 ## Done
 
 - [x] Dataset and city choice from the EDA (all 8 cities, forecastability indicators)
-- [x] Full pipeline: EDA, transformations, stationarity tests, rolling CV, baselines, ETS / SARIMA / Fourier / lag364
+- [x] Full pipeline: EDA, transformations, stationarity tests, rolling CV, baselines, ETS / SARIMA / ARIMA + lag364
 - [x] Course guidelines: Box-Cox/stationarity text, Hampel outlier treatment, forecasts vs actual and error plot
 - [x] Draft rewrite of all text cells, MAE/nMAE first
 - [x] Rerun on every PC, full read-through
