@@ -47,6 +47,7 @@ Repo GitHub: <https://github.com/peykoff/minichallenge-forecasting>
 Minichallenge-Forecasting/
 ├── CONTEXT.md                 ← questo file
 ├── TODO.md                    ← cose da fare fino alla consegna
+├── CODING_GUIDELINES.md       ← regole comuni per codice e celle (anche per progetti futuri)
 ├── .gitignore                 ← esclude .DS_Store, .ipynb_checkpoints/, __pycache__/
 ├── 2026 Mini Challenge.pdf    ← consegna (stampa parziale della pagina Notion)
 ├── hotels_LA.ipynb            ← NOTEBOOK PRINCIPALE (pipeline completa)
@@ -118,6 +119,7 @@ Il notebook va eseguito dalla cartella principale del repo (legge `Data/hotels.p
 
 | Data | Chi | Modifiche |
 |---|---|---|
+| 2026-10-31 | [nome] | Codice reso più leggibile (niente docstring, commenti essenziali, spaziature, loop al posto di comprehension annidate e if/else in linea). Creato `CODING_GUIDELINES.md` con le regole comuni. |
 | 2026-10-31 | [nome] | Notebook allineato al materiale del corso: rimosso il modello SARIMA + Fourier e il coefficiente di variazione (non trattati), lag364 giustificato come time embedding / ARIMAX, Hampel con std come nelle slide (7 outlier), testo AIC e MSTL chiarito. Runtime ≈ 35 s. |
 | 2026-10-30 | [nome] | Creato `TODO.md` con le attività rimanenti, la preparazione all'esame e gli extra opzionali. |
 | 2026-10-30 | [nome] | Riscritte in modo più semplice le 21 celle di testo del notebook (bozza da rivedere), metriche citate con MAE/nMAE prima del MAPE; aggiornata la pipeline nella prima cella. |
